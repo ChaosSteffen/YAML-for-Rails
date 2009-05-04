@@ -1,7 +1,7 @@
 =begin rdoc
 == yaml_for_rails
 
-YAML for Rails is a Rails Plugin, that provides a set helper methods to
+YAML for Rails is a Rails Plugin, that provides a set of helper methods to
 deal with the great CSS-Framwork YAML (http://www.yaml.de).
 
 For a documentation of the YAML Framework see the official documentation:

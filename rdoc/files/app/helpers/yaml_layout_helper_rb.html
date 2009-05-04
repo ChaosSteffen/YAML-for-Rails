@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: yaml_layout_helper.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>yaml_layout_helper.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>app/helpers/yaml_layout_helper.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon May 04 09:17:32 +0200 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h2>yaml_for_rails</h2>
+<p>
+YAML for Rails is a Rails Plugin, that provides a set of helper methods to
+deal with the great CSS-Framwork YAML (<a
+href="http://www.yaml.de">www.yaml.de</a>).
+</p>
+<p>
+For a documentation of the YAML Framework see the official documentation:
+<a
+href="http://www.yaml.de/en/documentation.html">www.yaml.de/en/documentation.html</a>
+</p>
+<p>
+Supported Features:
+</p>
+<ul>
+<li>Subtemplates / Subcolumns
+
+</li>
+<li>Form Construction Kit
+
+</li>
+<li>Navigation Components
+
+</li>
+</ul>
+<h3>License</h3>
+<p>
+YAML for Rails is licensed under MIT License
+</p>
+<h3>Thanks to</h3>
+<p>
+Dirk Jesse, for creation of the YAML-Framework.
+</p>
+<h2>Subtemplates / Subcolumns</h2>
+<p>
+With the <tt>subcolumns</tt> and <tt>column</tt> helpers you can create
+subtempletes. You can nest the into each other recursively with unlimited
+depth.
+</p>
+<h3>How to use</h3>
+<pre>
+   &lt;% subcolumns do %&gt;
+     &lt;% column :c50l, :subcl do %&gt;
+       content of first comlumn
+     &lt;% end %&gt;
+     &lt;% column :c50r, :subcr do %&gt;
+       content of second comlumn
+     &lt;% end -%&gt;
+   &lt;% end -%&gt;
+   # =&gt; &quot;&lt;div class=&quot;subcolumns&quot;&gt;
+   #       &lt;div class=&quot;c50l&quot;&gt;
+   #         &lt;div class=&quot;subcl&quot;&gt;
+   #           content of first comlumn
+   #         &lt;/div&gt;
+   #       &lt;/div&gt;
+   #       &lt;div class=&quot;c50r&quot;&gt;
+   #         &lt;div class=&quot;subcr&quot;&gt;
+   #           content of second comlumn
+   #         &lt;/div&gt;
+   #       &lt;/div&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+<h2>Form Construction Kit</h2>
+<p>
+One of the most time-saving features of YAML is the Form Construction Kit.
+But, it needs a lot of HTML boilerplate code to, so you hopefully enjoy the
+following helpers for form construction:
+</p>
+<ul>
+<li>fieldset
+
+</li>
+<li>type_text
+
+</li>
+<li>type_text_area
+
+</li>
+<li>type_select
+
+</li>
+<li>type_check
+
+</li>
+<li>type_radio
+
+</li>
+<li>buttonset
+
+</li>
+</ul>
+<h3>How to use</h3>
+<pre>
+ &lt;% form_for @user, :html  =&gt; { :class =&gt; :yform } do |f| -%&gt;
+   &lt;% fieldset &quot;User Data&quot; do %&gt;
+     &lt;%= type_text @user, :name, &quot;Username&quot; %&gt;
+   &lt;% end %&gt;
+   &lt;% buttonset do %&gt;
+     &lt;%= f.submit &quot;save&quot; %&gt;
+   &lt;% end %&gt;
+ &lt;% end -%&gt;
+ # =&gt; &quot;&lt;form action=&quot;/user/1&quot; class=&quot;yform&quot; id=&quot;edit_user_1&quot; method=&quot;post&quot;&gt;
+ #       &lt;fieldset&gt;
+ #         &lt;legend&gt;User Data&lt;/legend&gt;
+ #         &lt;div class=&quot;type-text&quot;&gt;
+ #           &lt;label for=&quot;user_name&quot;&gt;Username&lt;/label&gt;
+ #           &lt;input id=&quot;user_name&quot; name=&quot;user_name&quot; type=&quot;text&quot; value=&quot;John Doe&quot; /&gt;
+ #         &lt;/div&gt;
+ #       &lt;/fieldset&gt;
+ #       &lt;div class=&quot;type-button&quot;&gt;
+ #         &lt;input id=&quot;user_submit&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;save&quot; /&gt;
+ #       &lt;/div&gt;
+ #     &lt;/form&gt;&quot;
+</pre>
+<h2>Navigation Components</h2>
+<h3>How tu use</h3>
+<pre>
+ &lt;% navigation &quot;Main Navigation&quot; do %&gt;
+   &lt;%= item 'One', start_url %&gt;
+   &lt;%= item 'Two', :controller =&gt; 'user', :action =&gt; 'edit' %&gt;
+   &lt;% subnav 'Three' do %&gt;
+     &lt;%= item 'Three-One', 'http://www.example.org' %&gt;
+     &lt;%= item 'Three-Two', logout_url %&gt;
+   &lt;% end %&gt;
+   &lt;%= item 'Four', signup_url %&gt;
+ &lt;% end %&gt;
+ # =&gt; &quot;&lt;h6&gt;Main Navigation&lt;/h6&gt;
+ #     &lt;ul&gt;
+ #       &lt;li&gt;&lt;a href=&quot;http://localhost:3000/start&quot;&gt;One&lt;/a&gt;&lt;/li&gt;
+ #       &lt;li&gt;&lt;a href=&quot;/user/edit&quot;&gt;Two&lt;/a&gt;&lt;/li&gt;
+ #       &lt;li&gt;&lt;span&gt;Three&lt;/span&gt;
+ #         &lt;ul&gt;
+ #         &lt;li&gt;&lt;a href=&quot;http://www.example.org&quot;&gt;Three-One&lt;/a&gt;&lt;/li&gt;
+ #         &lt;li&gt;&lt;a href=&quot;http://localhost:3000/logout&quot;&gt;Three-Two&lt;/a&gt;&lt;/li&gt;
+ #         &lt;/ul&gt;
+ #       &lt;/li&gt;
+ #       &lt;li&gt;&lt;a href=&quot;http://localhost:3000/signup&quot;&gt;Four&lt;/a&gt;&lt;/li&gt;
+ #     &lt;/ul&gt;&quot;
+</pre>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

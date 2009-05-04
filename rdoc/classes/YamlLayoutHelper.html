@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: YamlLayoutHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">YamlLayoutHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/helpers/yaml_layout_helper_rb.html">
+                app/helpers/yaml_layout_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h2>yaml_for_rails</h2>
+<p>
+YAML for Rails is a Rails Plugin, that provides a set of helper methods to
+deal with the great CSS-Framwork YAML (<a
+href="http://www.yaml.de">www.yaml.de</a>).
+</p>
+<p>
+For a documentation of the YAML Framework see the official documentation:
+<a
+href="http://www.yaml.de/en/documentation.html">www.yaml.de/en/documentation.html</a>
+</p>
+<p>
+Supported Features:
+</p>
+<ul>
+<li>Subtemplates / Subcolumns
+
+</li>
+<li>Form Construction Kit
+
+</li>
+<li>Navigation Components
+
+</li>
+</ul>
+<h3>License</h3>
+<p>
+YAML for Rails is licensed under MIT License
+</p>
+<h3>Thanks to</h3>
+<p>
+Dirk Jesse, for creation of the YAML-Framework.
+</p>
+<h2>Subtemplates / Subcolumns</h2>
+<p>
+With the <tt><a href="YamlLayoutHelper.html#M000001">subcolumns</a></tt>
+and <tt><a href="YamlLayoutHelper.html#M000002">column</a></tt> helpers you
+can create subtempletes. You can nest the into each other recursively with
+unlimited depth.
+</p>
+<h3>How to use</h3>
+<pre>
+   &lt;% subcolumns do %&gt;
+     &lt;% column :c50l, :subcl do %&gt;
+       content of first comlumn
+     &lt;% end %&gt;
+     &lt;% column :c50r, :subcr do %&gt;
+       content of second comlumn
+     &lt;% end -%&gt;
+   &lt;% end -%&gt;
+   # =&gt; &quot;&lt;div class=&quot;subcolumns&quot;&gt;
+   #       &lt;div class=&quot;c50l&quot;&gt;
+   #         &lt;div class=&quot;subcl&quot;&gt;
+   #           content of first comlumn
+   #         &lt;/div&gt;
+   #       &lt;/div&gt;
+   #       &lt;div class=&quot;c50r&quot;&gt;
+   #         &lt;div class=&quot;subcr&quot;&gt;
+   #           content of second comlumn
+   #         &lt;/div&gt;
+   #       &lt;/div&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+<h2>Form Construction Kit</h2>
+<p>
+One of the most time-saving features of YAML is the Form Construction Kit.
+But, it needs a lot of HTML boilerplate code to, so you hopefully enjoy the
+following helpers for form construction:
+</p>
+<ul>
+<li><a href="YamlLayoutHelper.html#M000003">fieldset</a>
+
+</li>
+<li><a href="YamlLayoutHelper.html#M000004">type_text</a>
+
+</li>
+<li><a href="YamlLayoutHelper.html#M000005">type_text_area</a>
+
+</li>
+<li><a href="YamlLayoutHelper.html#M000006">type_select</a>
+
+</li>
+<li><a href="YamlLayoutHelper.html#M000007">type_check</a>
+
+</li>
+<li><a href="YamlLayoutHelper.html#M000008">type_radio</a>
+
+</li>
+<li><a href="YamlLayoutHelper.html#M000009">buttonset</a>
+
+</li>
+</ul>
+<h3>How to use</h3>
+<pre>
+ &lt;% form_for @user, :html  =&gt; { :class =&gt; :yform } do |f| -%&gt;
+   &lt;% fieldset &quot;User Data&quot; do %&gt;
+     &lt;%= type_text @user, :name, &quot;Username&quot; %&gt;
+   &lt;% end %&gt;
+   &lt;% buttonset do %&gt;
+     &lt;%= f.submit &quot;save&quot; %&gt;
+   &lt;% end %&gt;
+ &lt;% end -%&gt;
+ # =&gt; &quot;&lt;form action=&quot;/user/1&quot; class=&quot;yform&quot; id=&quot;edit_user_1&quot; method=&quot;post&quot;&gt;
+ #       &lt;fieldset&gt;
+ #         &lt;legend&gt;User Data&lt;/legend&gt;
+ #         &lt;div class=&quot;type-text&quot;&gt;
+ #           &lt;label for=&quot;user_name&quot;&gt;Username&lt;/label&gt;
+ #           &lt;input id=&quot;user_name&quot; name=&quot;user_name&quot; type=&quot;text&quot; value=&quot;John Doe&quot; /&gt;
+ #         &lt;/div&gt;
+ #       &lt;/fieldset&gt;
+ #       &lt;div class=&quot;type-button&quot;&gt;
+ #         &lt;input id=&quot;user_submit&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;save&quot; /&gt;
+ #       &lt;/div&gt;
+ #     &lt;/form&gt;&quot;
+</pre>
+<h2>Navigation Components</h2>
+<h3>How tu use</h3>
+<pre>
+ &lt;% navigation &quot;Main Navigation&quot; do %&gt;
+   &lt;%= item 'One', start_url %&gt;
+   &lt;%= item 'Two', :controller =&gt; 'user', :action =&gt; 'edit' %&gt;
+   &lt;% subnav 'Three' do %&gt;
+     &lt;%= item 'Three-One', 'http://www.example.org' %&gt;
+     &lt;%= item 'Three-Two', logout_url %&gt;
+   &lt;% end %&gt;
+   &lt;%= item 'Four', signup_url %&gt;
+ &lt;% end %&gt;
+ # =&gt; &quot;&lt;h6&gt;Main Navigation&lt;/h6&gt;
+ #     &lt;ul&gt;
+ #       &lt;li&gt;&lt;a href=&quot;http://localhost:3000/start&quot;&gt;One&lt;/a&gt;&lt;/li&gt;
+ #       &lt;li&gt;&lt;a href=&quot;/user/edit&quot;&gt;Two&lt;/a&gt;&lt;/li&gt;
+ #       &lt;li&gt;&lt;span&gt;Three&lt;/span&gt;
+ #         &lt;ul&gt;
+ #         &lt;li&gt;&lt;a href=&quot;http://www.example.org&quot;&gt;Three-One&lt;/a&gt;&lt;/li&gt;
+ #         &lt;li&gt;&lt;a href=&quot;http://localhost:3000/logout&quot;&gt;Three-Two&lt;/a&gt;&lt;/li&gt;
+ #         &lt;/ul&gt;
+ #       &lt;/li&gt;
+ #       &lt;li&gt;&lt;a href=&quot;http://localhost:3000/signup&quot;&gt;Four&lt;/a&gt;&lt;/li&gt;
+ #     &lt;/ul&gt;&quot;
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000009">buttonset</a>&nbsp;&nbsp;
+      <a href="#M000002">column</a>&nbsp;&nbsp;
+      <a href="#M000003">fieldset</a>&nbsp;&nbsp;
+      <a href="#M000011">item</a>&nbsp;&nbsp;
+      <a href="#M000010">navigation</a>&nbsp;&nbsp;
+      <a href="#M000001">subcolumns</a>&nbsp;&nbsp;
+      <a href="#M000012">subnav</a>&nbsp;&nbsp;
+      <a href="#M000007">type_check</a>&nbsp;&nbsp;
+      <a href="#M000008">type_radio</a>&nbsp;&nbsp;
+      <a href="#M000006">type_select</a>&nbsp;&nbsp;
+      <a href="#M000004">type_text</a>&nbsp;&nbsp;
+      <a href="#M000005">type_text_area</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="#M000009" class="method-signature">
+          <span class="method-name">buttonset</span><span class="method-args">(&amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates HTML Block for a set of buttons
+</p>
+<h4>Example</h4>
+<pre>
+   &lt;% buttonset do %&gt;
+     &lt;%= f.submit &quot;save&quot; %&gt;
+   &lt;% end %&gt;
+   # =&gt; &quot;&lt;div class=&quot;type-button&quot;&gt;
+   #       &lt;input id=&quot;user_submit&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;save&quot; /&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000009-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000009-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 339</span>
+339:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">buttonset</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+340:     <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;type-button&quot;</span><span class="ruby-value str">&quot;type-button&quot;</span>) {
+341:       <span class="ruby-identifier">capture</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+342:     } 
+343:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
+          <span class="method-name">column</span><span class="method-args">(container_class, content_class, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates <a href="YamlLayoutHelper.html#M000002">column</a> template
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>container_class</tt> - sets the class of the outer &lt;div&gt;
+
+</li>
+<li><tt>content_class</tt> - sets the class of the inner &lt;div&gt;
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+   &lt;% column :c50l, :subcl do %&gt;
+     content of first comlumn
+   &lt;% end %&gt;
+   # =&gt; &quot;&lt;div class=&quot;c50l&quot;&gt;
+   #       &lt;div class=&quot;subcl&quot;&gt;
+   #         content of first comlumn
+   #       &lt;/div&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 157</span>
+157:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">column</span> <span class="ruby-identifier">container_class</span>, <span class="ruby-identifier">content_class</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+158:     <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">container_class</span>) {
+159:       <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">content_class</span>) {
+160:         <span class="ruby-identifier">capture</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+161:       }
+162:     }
+163:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="#M000003" class="method-signature">
+          <span class="method-name">fieldset</span><span class="method-args">(legend, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates <a href="YamlLayoutHelper.html#M000003">fieldset</a> for Form
+Construction Kit
+</p>
+<h4>Example</h4>
+<pre>
+   &lt;% fieldset do %&gt;
+     form content here
+   &lt;% end -%&gt;
+   # =&gt; &quot;&lt;fieldset&gt;
+   #       form content here
+   #     &lt;/fieldset&gt;&quot;
+</pre>
+<h4>Options</h4>
+<ul>
+<li><tt>legend</tt> - if set, creates a legend for <a
+href="YamlLayoutHelper.html#M000003">fieldset</a>
+
+<pre>
+ &lt;% fieldset &quot;Infos&quot; do %&gt;
+   form content here
+ &lt;% end -%&gt;
+ # =&gt; &quot;&lt;fieldset&gt;
+ #       &lt;legend&gt;Infos&lt;/legend&gt;
+ #       form content here
+ #     &lt;/fieldset&gt;&quot;
+</pre>
+</li>
+</ul>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000003-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000003-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 186</span>
+186:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fieldset</span> <span class="ruby-identifier">legend</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+187:     <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:fieldset</span>) {
+188:       <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+189:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:legend</span>, <span class="ruby-identifier">legend</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">legend</span>.<span class="ruby-identifier">blank?</span>
+190:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">capture</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+191:     } 
+192:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="#M000011" class="method-signature">
+          <span class="method-name">item</span><span class="method-args">(title, link)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates a <a href="YamlLayoutHelper.html#M000010">navigation</a> <a
+href="YamlLayoutHelper.html#M000011">item</a> and links to a given url. If
+the link&#8216;s location is the current_page? then it sets &lt;li =
+class=&quot;active&quot;&gt;
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><tt>title</tt> - set the title of the link
+
+</li>
+<li><tt>link</tt> - pass a path, hash, url
+
+</li>
+</ul>
+<h4>Example</h4>
+<p>
+Use with path
+</p>
+<pre>
+   &lt;%= item 'One', start_path %&gt;
+   # =&gt; &quot;&lt;li&gt;&lt;a href=&quot;http://localhost:3000/start&quot;&gt;One&lt;/a&gt;&lt;/li&gt;&quot;
+</pre>
+<p>
+Use with hash
+</p>
+<pre>
+   &lt;%= item 'Two', :controller =&gt; 'user', :action =&gt; 'edit' %&gt;
+   # =&gt; &quot;&lt;li&gt;&lt;a href=&quot;/user/edit&quot;&gt;Two&lt;/a&gt;&lt;/li&gt;&quot;
+</pre>
+<p>
+Use with URL
+</p>
+<pre>
+   &lt;%= item 'Three', 'http://www.example.org' %&gt;
+   # =&gt; &quot;&lt;li&gt;&lt;a href=&quot;http://www.example.org&quot;&gt;Three&lt;/a&gt;&lt;/li&gt;&quot;
+</pre>
+<p>
+If your current site is the link, it sets &lt;li
+class=&quot;active&quot;&gt; and wraps the the title with &lt;strong&gt;
+</p>
+<pre>
+   &lt;%= item 'One', current_site_path %&gt;
+   # =&gt; &quot;&lt;li class=&quot;active&quot;&gt;&lt;strong&gt;One&lt;/strong&gt;&lt;/li&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000011-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000011-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 407</span>
+407:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">item</span> <span class="ruby-identifier">title</span>, <span class="ruby-identifier">link</span>
+408:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">current_page?</span> <span class="ruby-identifier">link</span>
+409:       <span class="ruby-identifier">content_tag</span> <span class="ruby-identifier">:li</span>, <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">title</span>, <span class="ruby-identifier">link</span>)
+410:     <span class="ruby-keyword kw">else</span>
+411:       <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:li</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:active</span>){
+412:         <span class="ruby-identifier">content_tag</span> <span class="ruby-identifier">:strong</span>, <span class="ruby-identifier">title</span>
+413:       }
+414:     <span class="ruby-keyword kw">end</span>
+415:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="#M000010" class="method-signature">
+          <span class="method-name">navigation</span><span class="method-args">(title = nil, title_tag = :h6, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates the root elements of a Navigation
+</p>
+<h4>Example</h4>
+<pre>
+   &lt;% navigation do %&gt;
+     Insert links here
+   &lt;% end %&gt;
+   # =&gt; &quot;&lt;ul&gt;
+   #       Insert links here
+   #     &lt;/ul&gt;&quot;
+</pre>
+<h4>Options</h4>
+<ul>
+<li><tt>title</tt> - if set, displays a title for the Navigation
+
+</li>
+<li><tt>title_tag</tt> - you can specify the tag for the title
+
+<p>
+&lt;% <a href="YamlLayoutHelper.html#M000010">navigation</a> &quot;Main
+Navigation&quot; do %&gt;
+</p>
+<pre>
+  Insert links here
+</pre>
+<p>
+&lt;% end %&gt;
+</p>
+<pre>
+ # =&gt; &quot;&lt;h6&gt;Main Navigation&lt;/h6&gt;
+ #     &lt;ul&gt;
+ #       Insert links here
+ #     &lt;/ul&gt;&quot;
+</pre>
+</li>
+</ul>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000010-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000010-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 368</span>
+368:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">navigation</span> <span class="ruby-identifier">title</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">title_tag</span> = <span class="ruby-identifier">:h6</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+369:     <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>()
+370:     <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>( <span class="ruby-identifier">title_tag</span>, <span class="ruby-identifier">title</span> ) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">title</span>.<span class="ruby-identifier">nil?</span>
+371:     <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:ul</span>) <span class="ruby-keyword kw">do</span>
+372:       <span class="ruby-identifier">capture</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+373:     <span class="ruby-keyword kw">end</span>
+374:     <span class="ruby-identifier">concat</span> <span class="ruby-identifier">output</span>
+375:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
+          <span class="method-name">subcolumns</span><span class="method-args">(equalize=false, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Genrates <a href="YamlLayoutHelper.html#M000001">subcolumns</a> template
+</p>
+<h4>Example</h4>
+<pre>
+   &lt;% subcolumns do %&gt;
+     insert columns here
+   &lt;% end -%&gt;
+   # =&gt; &quot;&lt;div class=&quot;subcolumns&quot;&gt;
+   #       insert columns here
+   #     &lt;/div&gt;&quot;
+</pre>
+<h4>Options</h4>
+<ul>
+<li><tt>equalize</tt> - if set, the columns height will be equalized
+
+<pre>
+ &lt;% subcolumns true do %&gt;
+   insert columns here
+ &lt;% end -%&gt;
+ # =&gt; &quot;&lt;div class=&quot;subcolumns equalize&quot;&gt;
+ #       insert columns here
+ #     &lt;/div&gt;&quot;
+</pre>
+</li>
+</ul>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 135</span>
+135:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subcolumns</span> <span class="ruby-identifier">equalize</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+136:     <span class="ruby-identifier">css_class</span> = <span class="ruby-identifier">equalize</span> <span class="ruby-value">? </span><span class="ruby-operator">:</span><span class="ruby-value str">&quot;subcolumns equalize&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">:subcolumns</span>
+137:     <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">css_class</span>) {
+138:       <span class="ruby-identifier">capture</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+139:     }
+140:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">subnav</span><span class="method-args">(title = nil, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates a sub-<a href="YamlLayoutHelper.html#M000010">navigation</a>
+level
+</p>
+<h4>Options</h4>
+<ul>
+<li><tt>title</tt> - takes the title of the sub-<a
+href="YamlLayoutHelper.html#M000010">navigation</a> level
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+   &lt;% subnav 'Three' do %&gt;
+     &lt;%= item 'Three-One', 'http://www.example.org' %&gt;
+     &lt;%= item 'Three-Two', logout_url %&gt;
+   &lt;% end %&gt;
+   # =&gt; &quot;&lt;li&gt;
+   #       &lt;span&gt;Three&lt;/span&gt;
+   #       &lt;ul&gt;
+   #         &lt;li&gt;&lt;a href=&quot;http://www.example.org&quot;&gt;Three-One&lt;/a&gt;&lt;/li&gt;
+   #         &lt;li&gt;&lt;a href=&quot;http://localhost:3000/logout&quot;&gt;Three-Two&lt;/a&gt;&lt;/li&gt;
+   #       &lt;/ul&gt;
+   #     &lt;/li&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 436</span>
+436:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subnav</span> <span class="ruby-identifier">title</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+437:     <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:li</span>) {
+438:       <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>()
+439:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>( <span class="ruby-identifier">:span</span>, <span class="ruby-identifier">title</span> ) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">title</span>.<span class="ruby-identifier">nil?</span>
+440:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">navigation</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+441:     }
+442:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="#M000007" class="method-signature">
+          <span class="method-name">type_check</span><span class="method-args">(object, method, label_text)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates HTML Block for Checkbox Element
+</p>
+<h4>Parameters</h4>
+<ul>
+<li>object - takes the object
+
+</li>
+<li>method - takes a hash of which attribute should be used
+
+</li>
+<li>label_text
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+   &lt;%= type_check @user, :adult, &quot;I'm older than 18 years&quot; %&gt;
+   # =&gt; &quot;&lt;div class=&quot;type-check&quot;&gt;
+   #       &lt;input id=&quot;user_adult&quot; name=&quot;user_adult&quot; type=&quot;checkbox&quot; /&gt;
+   #       &lt;label for=&quot;user_adult&quot;&gt;I'm older than 18 years&lt;/label&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000007-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000007-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 285</span>
+285:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type_check</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">label_text</span>
+286:     <span class="ruby-identifier">content_tag</span> <span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;type-check&quot;</span><span class="ruby-value str">&quot;type-check&quot;</span> <span class="ruby-keyword kw">do</span>
+287:       <span class="ruby-identifier">attr_id</span> = <span class="ruby-node">&quot;#{object.class.to_s.downcase}_#{method}&quot;</span>.<span class="ruby-identifier">to_sym</span>
+288:       <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+289:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">check_box_tag</span>(<span class="ruby-identifier">attr_id</span>, <span class="ruby-identifier">object</span>.<span class="ruby-identifier">read_attribute</span>(<span class="ruby-identifier">method</span>))
+290:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:label</span>, <span class="ruby-identifier">label_text</span>, <span class="ruby-identifier">:for</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr_id</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">label_text</span>.<span class="ruby-identifier">blank?</span>
+291:     <span class="ruby-keyword kw">end</span>
+292:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="#M000008" class="method-signature">
+          <span class="method-name">type_radio</span><span class="method-args">(object, method, label_text, value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates HTML Block for Checkbox Element
+</p>
+<h4>Parameters</h4>
+<ul>
+<li>object - takes the object
+
+</li>
+<li>method - takes a hash of which attribute should be used
+
+</li>
+<li>label_text
+
+</li>
+<li>value - which value does this checkbox stand for
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+   &lt;p&gt;Sex&lt;br /&gt;
+     &lt;%= type_radio @user, :sex, &quot;male&quot;, &quot;m&quot; %&gt;
+     &lt;%= type_radio @user, :sex, &quot;female&quot;, &quot;f&quot; %&gt;
+   &lt;/p&gt;
+   # =&gt; &quot;&lt;p&gt;Sex&lt;br /&gt;
+   #       &lt;div class=&quot;type-check&quot;&gt;
+   #         &lt;input id=&quot;user_sex_m&quot; name=&quot;user_sex&quot; type=&quot;radio&quot; value=&quot;m&quot; /&gt;
+   #         &lt;label for=&quot;user_sex&quot;&gt;male&lt;/label&gt;
+   #       &lt;/div&gt;
+   #       &lt;div class=&quot;type-check&quot;&gt;
+   #         &lt;input id=&quot;user_sex_f&quot; name=&quot;user_sex&quot; type=&quot;radio&quot; value=&quot;f&quot; /&gt;
+   #         &lt;label for=&quot;user_sex&quot;&gt;female&lt;/label&gt;
+   #       &lt;/div&gt;
+   #     &lt;/p&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000008-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000008-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 319</span>
+319:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type_radio</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">label_text</span>, <span class="ruby-identifier">value</span>
+320:     <span class="ruby-identifier">content_tag</span> <span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;type-check&quot;</span><span class="ruby-value str">&quot;type-check&quot;</span> <span class="ruby-keyword kw">do</span>
+321:       <span class="ruby-identifier">attr_id</span> = <span class="ruby-node">&quot;#{object.class.to_s.downcase}_#{method}&quot;</span>.<span class="ruby-identifier">to_sym</span>
+322:       <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+323:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">radio_button_tag</span>(<span class="ruby-identifier">attr_id</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">object</span>.<span class="ruby-identifier">read_attribute</span>(<span class="ruby-identifier">method</span>)<span class="ruby-operator">==</span><span class="ruby-identifier">value</span> )
+324:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:label</span>, <span class="ruby-identifier">label_text</span>, <span class="ruby-identifier">:for</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr_id</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">label_text</span>.<span class="ruby-identifier">blank?</span>
+325:     <span class="ruby-keyword kw">end</span>
+326:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="#M000006" class="method-signature">
+          <span class="method-name">type_select</span><span class="method-args">(object, method, label_text, options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates HTML Block for Select Element
+</p>
+<h4>Parameters</h4>
+<ul>
+<li>object - takes the object
+
+</li>
+<li>method - takes a hash of which attribute should be used
+
+</li>
+<li>label_text
+
+</li>
+<li>options - takes the options_string, use Rails&#8216;s options_for_select()
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+   &lt;%= type_select @user, :city, &quot;Wohnort&quot;, options_for_select([[&quot;Berlin&quot;, &quot;BER&quot;],[&quot;Munich&quot;, &quot;MUC&quot;]]) %&gt;
+   # =&gt; &quot;&lt;div class=&quot;type-select&quot;&gt;
+   #       &lt;label for=&quot;user_city&quot;&gt;Wohnort&lt;/label&gt;
+   #       &lt;select id=&quot;user_city&quot; name=&quot;user_city&quot;&gt;
+   #         &lt;option value=&quot;BER&quot;&gt;Berlin&lt;/option&gt;
+   #         &lt;option value=&quot;MUC&quot;&gt;Munich&lt;/option&gt;
+   #       &lt;/select&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000006-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000006-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 261</span>
+261:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type_select</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">label_text</span>, <span class="ruby-identifier">options</span>
+262:     <span class="ruby-identifier">content_tag</span> <span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;type-select&quot;</span><span class="ruby-value str">&quot;type-select&quot;</span> <span class="ruby-keyword kw">do</span>
+263:       <span class="ruby-identifier">attr_id</span> = <span class="ruby-node">&quot;#{object.class.to_s.downcase}_#{method}&quot;</span>.<span class="ruby-identifier">to_sym</span>
+264:       <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+265:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:label</span>, <span class="ruby-identifier">label_text</span>, <span class="ruby-identifier">:for</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr_id</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">label_text</span>.<span class="ruby-identifier">blank?</span>
+266:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">select_tag</span>(<span class="ruby-identifier">attr_id</span>, <span class="ruby-identifier">options</span>)
+267:     <span class="ruby-keyword kw">end</span>
+268:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="#M000004" class="method-signature">
+          <span class="method-name">type_text</span><span class="method-args">(object, method, label_text)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates HTML Blocks for Textfield Element
+</p>
+<h4>Parameters</h4>
+<ul>
+<li>object - takes the object
+
+</li>
+<li>method - takes a hash of which attribute should be used
+
+</li>
+<li>label_text
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+   &lt;%= type_text @user, :city, &quot;Location&quot; %&gt;
+   # =&gt; &quot;&lt;div class=&quot;type-text&quot;&gt;
+   #       &lt;label for=&quot;user_city&quot;&gt;Location&lt;/label&gt;
+   #       &lt;input id=&quot;user_city&quot; name=&quot;user_city&quot; type=&quot;text&quot; value=&quot;Berlin&quot; /&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000004-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000004-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 209</span>
+209:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type_text</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">label_text</span>
+210:     <span class="ruby-identifier">content_tag</span> <span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;type-text&quot;</span><span class="ruby-value str">&quot;type-text&quot;</span> <span class="ruby-keyword kw">do</span>
+211:       <span class="ruby-identifier">attr_id</span> = <span class="ruby-node">&quot;#{object.class.to_s.downcase}_#{method}&quot;</span>.<span class="ruby-identifier">to_sym</span>
+212:       <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+213:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:label</span>, <span class="ruby-identifier">label_text</span>, <span class="ruby-identifier">:for</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr_id</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">label_text</span>.<span class="ruby-identifier">blank?</span>
+214:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_field_tag</span>(<span class="ruby-identifier">attr_id</span>, <span class="ruby-identifier">object</span>.<span class="ruby-identifier">read_attribute</span>(<span class="ruby-identifier">method</span>))
+215:     <span class="ruby-keyword kw">end</span>
+216:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="#M000005" class="method-signature">
+          <span class="method-name">type_text_area</span><span class="method-args">(object, method, label_text)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates HTML Blocks for Textarea Element
+</p>
+<h4>Parameters</h4>
+<ul>
+<li>object - takes the object
+
+</li>
+<li>method - takes a hash of which attribute should be used
+
+</li>
+<li>label_text
+
+</li>
+</ul>
+<h4>Example</h4>
+<pre>
+   &lt;%= type_text_area @user, :about, &quot;About me&quot; %&gt;
+   # =&gt; &quot;&lt;div class=&quot;type-text&quot;&gt;
+   #       &lt;label for=&quot;user_about&quot;&gt;About me&lt;/label&gt;
+   #       &lt;textarea id=&quot;user_about&quot; name=&quot;user_about&quot;&gt;Lorem ipsum dolor sit amet&lt;/textarea&gt;
+   #     &lt;/div&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000005-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000005-source">
+<pre>
+     <span class="ruby-comment cmt"># File app/helpers/yaml_layout_helper.rb, line 233</span>
+233:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type_text_area</span> <span class="ruby-identifier">object</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">label_text</span>
+234:     <span class="ruby-identifier">content_tag</span> <span class="ruby-identifier">:div</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;type-text&quot;</span><span class="ruby-value str">&quot;type-text&quot;</span> <span class="ruby-keyword kw">do</span>
+235:       <span class="ruby-identifier">attr_id</span> = <span class="ruby-node">&quot;#{object.class.to_s.downcase}_#{method}&quot;</span>.<span class="ruby-identifier">to_sym</span>
+236:       <span class="ruby-identifier">output</span> = <span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>
+237:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:label</span>, <span class="ruby-identifier">label_text</span>, <span class="ruby-identifier">:for</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr_id</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">label_text</span>.<span class="ruby-identifier">blank?</span>
+238:       <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_area_tag</span>(<span class="ruby-identifier">attr_id</span>, <span class="ruby-identifier">object</span>.<span class="ruby-identifier">read_attribute</span>(<span class="ruby-identifier">method</span>))
+239:     <span class="ruby-keyword kw">end</span>
+240:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
