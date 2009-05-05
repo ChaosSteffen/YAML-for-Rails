@@ -1,13 +1,21 @@
-YamlForRails
+YAML for Rails
+==============
+
+YAML for Rails provides a set of helper methods to deal with the great CSS-Framwork YAML (http://www.yaml.de).
+
+
+Installation
 ============
 
-Introduction goes here.
+run in your apps root directory
+
+ git clone git@github.com:Santino/YAML-for-Rails.git vendor/plugins/yaml_for_rails
 
 
-Example
-=======
+Usage
+=====
 
-Example goes here.
+see /rdoc/index.html
 
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Copyright (c) 2009 Steffen Schröder, released under the MIT license
