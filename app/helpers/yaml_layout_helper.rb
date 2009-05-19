@@ -208,7 +208,7 @@ module YamlLayoutHelper
   #
   def type_text object, method, label_text
     content_tag :div, :class => :"type-text" do
-      attr_id = "#{object.class.to_s.downcase}_#{method}".to_sym
+      attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
       output << content_tag(:label, label_text, :for => attr_id) unless label_text.blank?
       output << text_field_tag(attr_id, object.read_attribute(method))
@@ -232,7 +232,7 @@ module YamlLayoutHelper
   #
   def type_text_area object, method, label_text
     content_tag :div, :class => :"type-text" do
-      attr_id = "#{object.class.to_s.downcase}_#{method}".to_sym
+      attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
       output << content_tag(:label, label_text, :for => attr_id) unless label_text.blank?
       output << text_area_tag(attr_id, object.read_attribute(method))
@@ -260,7 +260,7 @@ module YamlLayoutHelper
   #
   def type_select object, method, label_text, options
     content_tag :div, :class => :"type-select" do
-      attr_id = "#{object.class.to_s.downcase}_#{method}".to_sym
+      attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
       output << content_tag(:label, label_text, :for => attr_id) unless label_text.blank?
       output << select_tag(attr_id, options)
@@ -284,7 +284,7 @@ module YamlLayoutHelper
   #
   def type_check object, method, label_text
     content_tag :div, :class => :"type-check" do
-      attr_id = "#{object.class.to_s.downcase}_#{method}".to_sym
+      attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
       output << check_box_tag(attr_id, object.read_attribute(method))
       output << content_tag(:label, label_text, :for => attr_id) unless label_text.blank?
@@ -318,7 +318,7 @@ module YamlLayoutHelper
   #
   def type_radio object, method, label_text, value
     content_tag :div, :class => :"type-check" do
-      attr_id = "#{object.class.to_s.downcase}_#{method}".to_sym
+      attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
       output << radio_button_tag(attr_id, value, object.read_attribute(method)==value )
       output << content_tag(:label, label_text, :for => attr_id) unless label_text.blank?
