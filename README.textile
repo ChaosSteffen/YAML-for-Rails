@@ -1,6 +1,6 @@
 h1. YAML for Rails
 
-YAML for Rails provides a set of helper methods to deal with the great CSS-Framwork YAML (http://www.yaml.de).
+YAML for Rails provides a set of helper methods to deal with the great CSS-Framwork YAML ("http://www.yaml.de":http://www.yaml.de).
 
 
 h2. Installation
@@ -12,7 +12,7 @@ run in your apps root directory
 
 h2. Usage
 
-see @/rdoc/index.html@
+see "http://rdoc.info/projects/Santino/YAML-for-Rails":http://rdoc.info/projects/Santino/YAML-for-Rails
 
 
 Copyright (c) 2009 Steffen Schröder, released under the MIT license
