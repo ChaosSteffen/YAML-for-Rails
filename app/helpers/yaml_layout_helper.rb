@@ -126,15 +126,16 @@ module YamlLayoutHelper
   # ==== Options
   # * +equalize+ - if set, the columns height will be equalized
   #
-  #    <% subcolumns true do %>
+  #    <% subcolumns :equalize do %>
   #      insert columns here
   #    <% end -%>
   #    # => "<div class="subcolumns equalize">
   #    #       insert columns here
   #    #     </div>"
-  def subcolumns equalize=false, &block
-    css_class = equalize ? :"subcolumns equalize" : :subcolumns
-    concat content_tag(:div, :class => css_class) {
+  def subcolumns classes=[], &block
+    classes = [classes.to_s] unless classes.is_a? Array
+    classes << "subcolumns"
+    concat content_tag(:div, :class => classes.join(" ")) {
       capture(&block)
     }
   end
