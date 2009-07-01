@@ -192,6 +192,7 @@ module YamlLayoutHelper
     } 
   end
   
+  #<b>deprecated</b>
   # Generates HTML Blocks for Textfield Element
   #
   # ==== Parameters
@@ -208,6 +209,8 @@ module YamlLayoutHelper
   #    #     </div>"
   #
   def type_text object, method, label_text
+    warn "[DEPRECATION] `type_text` is deprecated.  Please use `f.text_field` instead."
+  
     content_tag :div, :class => :"type-text" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
@@ -216,6 +219,7 @@ module YamlLayoutHelper
     end
   end
   
+  #<b>deprecated</b>
   # Generates HTML Blocks for Textarea Element
   #
   # ==== Parameters
@@ -232,6 +236,8 @@ module YamlLayoutHelper
   #    #     </div>"
   #
   def type_text_area object, method, label_text
+    warn "[DEPRECATION] `type_text_area` is deprecated.  Please use `f.text_area` instead."
+    
     content_tag :div, :class => :"type-text" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
@@ -268,6 +274,7 @@ module YamlLayoutHelper
     end
   end
   
+  #<b>deprecated</b>
   # Generates HTML Block for Checkbox Element
   #
   # ==== Parameters
@@ -284,6 +291,8 @@ module YamlLayoutHelper
   #    #     </div>"
   #
   def type_check object, method, label_text
+    warn "[DEPRECATION] `type_check` is deprecated.  Please use `f.check_box` instead."
+    
     content_tag :div, :class => :"type-check" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
@@ -292,6 +301,7 @@ module YamlLayoutHelper
     end
   end
   
+  #<b>deprecated</b>
   # Generates HTML Block for Checkbox Element
   #
   # ==== Parameters
@@ -318,6 +328,8 @@ module YamlLayoutHelper
   #    #     </p>"
   #
   def type_radio object, method, label_text, value
+    warn "[DEPRECATION] `type_radio` is deprecated.  Please use `f.radio_button` instead."
+    
     content_tag :div, :class => :"type-check" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
       output = String.new
