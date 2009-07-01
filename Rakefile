@@ -19,4 +19,5 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.title    = 'YamlForRails'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('app/**/*.rb')
+  rdoc.rdoc_files.include('lib/*.rb')
 end
