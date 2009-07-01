@@ -1,2 +1,4 @@
 .DS_Store
 rdoc/**/*
+doc/*
+.yardoc

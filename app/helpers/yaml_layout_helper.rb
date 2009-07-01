@@ -1,116 +1,112 @@
-=begin rdoc
-== yaml_for_rails
-
-YAML for Rails is a Rails Plugin, that provides a set of helper methods to
-deal with the great CSS-Framwork YAML (http://www.yaml.de).
-
-For a documentation of the YAML Framework see the official documentation:
-http://www.yaml.de/en/documentation.html
-
-Supported Features:
-
-* Subtemplates / Subcolumns
-* Form Construction Kit
-* Navigation Components
-  
-=== License
-YAML for Rails is licensed under MIT License
-  
-=== Thanks to
-Dirk Jesse, for creation of the YAML-Framework.
-  
-== Subtemplates / Subcolumns
-
-With the +subcolumns+ and +column+ helpers you can create subtempletes. 
-You can nest the into each other recursively with unlimited depth.
-  
-=== How to use
-
-   <% subcolumns do %>
-     <% column :c50l, :subcl do %>
-       content of first comlumn
-     <% end %>
-     <% column :c50r, :subcr do %>
-       content of second comlumn
-     <% end -%>
-   <% end -%>
-   # => "<div class="subcolumns">
-   #       <div class="c50l">
-   #         <div class="subcl">
-   #           content of first comlumn
-   #         </div>
-   #       </div>
-   #       <div class="c50r">
-   #         <div class="subcr">
-   #           content of second comlumn
-   #         </div>
-   #       </div>
-   #     </div>"
-
-== Form Construction Kit
-  
-One of the most time-saving features of YAML is the Form Construction Kit.
-But, it needs a lot of HTML boilerplate code to, so you hopefully enjoy the following
-helpers for form construction:
-  
-* fieldset
-* type_text
-* type_text_area
-* type_select
-* type_check
-* type_radio
-* buttonset
-
-=== How to use
-
- <% form_for @user, :html  => { :class => :yform } do |f| -%>
-   <% fieldset "User Data" do %>
-     <%= type_text @user, :name, "Username" %>
-   <% end %>
-   <% buttonset do %>
-     <%= f.submit "save" %>
-   <% end %>
- <% end -%>
- # => "<form action="/user/1" class="yform" id="edit_user_1" method="post">
- #       <fieldset>
- #         <legend>User Data</legend>
- #         <div class="type-text">
- #           <label for="user_name">Username</label>
- #           <input id="user_name" name="user_name" type="text" value="John Doe" />
- #         </div>
- #       </fieldset>
- #       <div class="type-button">
- #         <input id="user_submit" name="commit" type="submit" value="save" />
- #       </div>
- #     </form>"
-
-== Navigation Components
-
-=== How tu use
-
- <% navigation "Main Navigation" do %>
-   <%= item 'One', start_url %>
-   <%= item 'Two', :controller => 'user', :action => 'edit' %>
-   <% subnav 'Three' do %>
-     <%= item 'Three-One', 'http://www.example.org' %>
-     <%= item 'Three-Two', logout_url %>
-   <% end %>
-   <%= item 'Four', signup_url %>
- <% end %>
- # => "<h6>Main Navigation</h6>
- #     <ul>
- #       <li><a href="http://localhost:3000/start">One</a></li>
- #       <li><a href="/user/edit">Two</a></li>
- #       <li><span>Three</span>
- #         <ul>
- #         <li><a href="http://www.example.org">Three-One</a></li>
- #         <li><a href="http://localhost:3000/logout">Three-Two</a></li>
- #         </ul>
- #       </li>
- #       <li><a href="http://localhost:3000/signup">Four</a></li>
- #     </ul>"
-
-=end
+# YAML for Rails is a Rails Plugin, that provides a set of helper methods to
+# deal with the great CSS-Framwork YAML (http://www.yaml.de).
+# 
+# For a documentation of the YAML Framework see the official documentation:
+# http://www.yaml.de/en/documentation.html
+# 
+# Supported Features:
+# 
+# * Subtemplates / Subcolumns
+# * Form Construction Kit
+# * Navigation Components
+#   
+# === License
+# YAML for Rails is licensed under MIT License
+#   
+# === Thanks to
+# Dirk Jesse, for creation of the YAML-Framework.
+#   
+# == Subtemplates / Subcolumns
+# 
+# With the +subcolumns+ and +column+ helpers you can create subtempletes. 
+# You can nest the into each other recursively with unlimited depth.
+#   
+# === How to use
+# 
+#    <% subcolumns do %>
+#      <% column :c50l, :subcl do %>
+#        content of first comlumn
+#      <% end %>
+#      <% column :c50r, :subcr do %>
+#        content of second comlumn
+#      <% end -%>
+#    <% end -%>
+#    # => "<div class="subcolumns">
+#    #       <div class="c50l">
+#    #         <div class="subcl">
+#    #           content of first comlumn
+#    #         </div>
+#    #       </div>
+#    #       <div class="c50r">
+#    #         <div class="subcr">
+#    #           content of second comlumn
+#    #         </div>
+#    #       </div>
+#    #     </div>"
+# 
+# == Form Construction Kit
+#   
+# One of the most time-saving features of YAML is the Form Construction Kit.
+# But, it needs a lot of HTML boilerplate code to, so you hopefully enjoy the following
+# helpers for form construction:
+#   
+# * fieldset
+# * type_text
+# * type_text_area
+# * type_select
+# * type_check
+# * type_radio
+# * buttonset
+# 
+# === How to use
+# 
+#  <% form_for @user, :html  => { :class => :yform } do |f| -%>
+#    <% fieldset "User Data" do %>
+#      <%= type_text @user, :name, "Username" %>
+#    <% end %>
+#    <% buttonset do %>
+#      <%= f.submit "save" %>
+#    <% end %>
+#  <% end -%>
+#  # => "<form action="/user/1" class="yform" id="edit_user_1" method="post">
+#  #       <fieldset>
+#  #         <legend>User Data</legend>
+#  #         <div class="type-text">
+#  #           <label for="user_name">Username</label>
+#  #           <input id="user_name" name="user_name" type="text" value="John Doe" />
+#  #         </div>
+#  #       </fieldset>
+#  #       <div class="type-button">
+#  #         <input id="user_submit" name="commit" type="submit" value="save" />
+#  #       </div>
+#  #     </form>"
+# 
+# == Navigation Components
+# 
+# === How tu use
+# 
+#  <% navigation "Main Navigation" do %>
+#    <%= item 'One', start_url %>
+#    <%= item 'Two', :controller => 'user', :action => 'edit' %>
+#    <% subnav 'Three' do %>
+#      <%= item 'Three-One', 'http://www.example.org' %>
+#      <%= item 'Three-Two', logout_url %>
+#    <% end %>
+#    <%= item 'Four', signup_url %>
+#  <% end %>
+#  # => "<h6>Main Navigation</h6>
+#  #     <ul>
+#  #       <li><a href="http://localhost:3000/start">One</a></li>
+#  #       <li><a href="/user/edit">Two</a></li>
+#  #       <li><span>Three</span>
+#  #         <ul>
+#  #         <li><a href="http://www.example.org">Three-One</a></li>
+#  #         <li><a href="http://localhost:3000/logout">Three-Two</a></li>
+#  #         </ul>
+#  #       </li>
+#  #       <li><a href="http://localhost:3000/signup">Four</a></li>
+#  #     </ul>"
+# 
 module YamlLayoutHelper
   
   # Genrates subcolumns template
@@ -193,6 +189,7 @@ module YamlLayoutHelper
   end
   
   #<b>deprecated</b>
+  #
   # Generates HTML Blocks for Textfield Element
   #
   # ==== Parameters
@@ -209,7 +206,7 @@ module YamlLayoutHelper
   #    #     </div>"
   #
   def type_text object, method, label_text
-    warn "[DEPRECATION] `type_text` is deprecated.  Please use `f.text_field` instead."
+    warn "[DEPRECATION] `type_text` is deprecated. Please use `f.text_field` instead."
   
     content_tag :div, :class => :"type-text" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
@@ -220,6 +217,7 @@ module YamlLayoutHelper
   end
   
   #<b>deprecated</b>
+  #
   # Generates HTML Blocks for Textarea Element
   #
   # ==== Parameters
@@ -236,7 +234,7 @@ module YamlLayoutHelper
   #    #     </div>"
   #
   def type_text_area object, method, label_text
-    warn "[DEPRECATION] `type_text_area` is deprecated.  Please use `f.text_area` instead."
+    warn "[DEPRECATION] `type_text_area` is deprecated. Please use `f.text_area` instead."
     
     content_tag :div, :class => :"type-text" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
@@ -275,6 +273,7 @@ module YamlLayoutHelper
   end
   
   #<b>deprecated</b>
+  #
   # Generates HTML Block for Checkbox Element
   #
   # ==== Parameters
@@ -291,7 +290,7 @@ module YamlLayoutHelper
   #    #     </div>"
   #
   def type_check object, method, label_text
-    warn "[DEPRECATION] `type_check` is deprecated.  Please use `f.check_box` instead."
+    warn "[DEPRECATION] `type_check` is deprecated. Please use `f.check_box` instead."
     
     content_tag :div, :class => :"type-check" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
@@ -302,6 +301,7 @@ module YamlLayoutHelper
   end
   
   #<b>deprecated</b>
+  #
   # Generates HTML Block for Checkbox Element
   #
   # ==== Parameters
@@ -328,7 +328,7 @@ module YamlLayoutHelper
   #    #     </p>"
   #
   def type_radio object, method, label_text, value
-    warn "[DEPRECATION] `type_radio` is deprecated.  Please use `f.radio_button` instead."
+    warn "[DEPRECATION] `type_radio` is deprecated. Please use `f.radio_button` instead."
     
     content_tag :div, :class => :"type-check" do
       attr_id = "#{object.class.to_s.downcase}[#{method}]".to_sym
