@@ -61,7 +61,7 @@ class YamlFormBuilder < ActionView::Helpers::FormBuilder
   def radio_button(attribute, label_text, tag_value, options)
     @template.content_tag :div, :class => :"type-check" do
       super(attribute, tag_value, options) +
-      label(attribute, label_text)
+      label(attribute, label_text, :value => tag_value)
     end
   end
 end
